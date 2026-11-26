@@ -34,3 +34,25 @@ RUN chmod +x /entrypoint.sh && \
     chmod -R g=u /tmp/nginx /builds
 USER 1001
 ENTRYPOINT ["/entrypoint.sh"]
+
+# Red Hat labels. The release pipeline rejects a component whose image omits
+# them, and `name` has to match the repository this image publishes to.
+#
+# Spell the values out rather than referencing ARGs: the nginx base image sets
+# ENV NAME, SUMMARY and DESCRIPTION, and ENV wins over ARG when a label
+# expands $NAME, so an ARG-based block silently inherits nginx's text.
+
+LABEL com.redhat.component="trustee-console-plugin"
+LABEL description="The Trustee attestation console plugin."
+LABEL io.k8s.description="The Trustee attestation console plugin."
+LABEL io.k8s.display-name="Trustee attestation console plugin"
+LABEL name="build-of-trustee/trustee-console-plugin-rhel9"
+LABEL summary="The Trustee attestation console plugin."
+LABEL distribution-scope=public
+LABEL release="1"
+LABEL url="https://access.redhat.com/"
+LABEL vendor="Red Hat, Inc."
+LABEL version="1.3.0"
+LABEL maintainer="Red Hat"
+LABEL io.openshift.tags=""
+LABEL cpe="cpe:/a:redhat:confidential_compute_attestation:1.140::el9"
